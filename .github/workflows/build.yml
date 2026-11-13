@@ -25,31 +25,23 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Install system dependencies
+      - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            git zip unzip \
-            autoconf automake libtool \
-            pkg-config cmake \
-            zlib1g-dev libncurses5-dev \
-            libncursesw5-dev libffi-dev \
-            libssl-dev libltdl-dev \
-            libsqlite3-dev libbz2-dev \
-            libreadline-dev liblzma-dev \
-            libgdbm-dev libdb-dev \
-            libexpat1-dev libjpeg-dev libwebp-dev
+            git zip unzip autoconf libtool \
+            pkg-config zlib1g-dev \
+            libncurses5-dev libncursesw5-dev \
+            cmake libffi-dev libssl-dev \
+            automake libltdl-dev libsqlite3-dev \
+            libbz2-dev libreadline-dev liblzma-dev \
+            libgdbm-dev libdb-dev libexpat1-dev \
+            libwebp-dev libjpeg-dev
 
       - name: Install Buildozer
         run: |
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install buildozer "cython==0.29.36"
-
-      - name: Configure Android environment
-        run: |
-          echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
-          echo "ANDROID_HOME=$ANDROID_HOME" >> $GITHUB_ENV
-          echo "ANDROID_SDK_ROOT=$ANDROID_HOME" >> $GITHUB_ENV
 
       - name: Build APK
         run: |
@@ -61,5 +53,6 @@ jobs:
           name: MONU-Scientific-Calculator-APK
           path: bin/*.apk
           if-no-files-found: error
+          
           
           
